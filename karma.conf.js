@@ -17,66 +17,30 @@
  *
  */
 
-/* eslint-disable sort-keys */
-
 'use strict';
 
 module.exports = function(config) {
   config.set({
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: 'dist',
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
-
-    // list of files / patterns to load in the browser
-    files: [
-      // Do not write files or patterns here. Put them in grunt/config/karma.js
-    ],
-
-    proxies: {},
-
-    // list of files to exclude
-    exclude: [],
-
-    // pre-process matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      '../dist/script/**/*.js': ['coverage'],
-    },
-
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['coverage', 'progress'],
-
-    // web server port
-    port: 9876,
-
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_ERROR,
-
-    // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    basePath: 'dist',
     browsers: ['ChromeHeadless'],
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
-
-    // Concurrency level
-    // how many browser should be started simultaneous
+    colors: true,
     concurrency: Infinity,
-
     coverageReporter: {
+      check: {
+        each: {
+          branches: 0,
+          functions: 0,
+          lines: 0,
+          statements: 0,
+        },
+        global: {
+          branches: 25,
+          functions: 20,
+          lines: 40,
+          statements: 40,
+        },
+      },
       reporters: [
         {
           dir: '../docs/coverage',
@@ -88,21 +52,18 @@ module.exports = function(config) {
           type: 'text-summary',
         },
       ],
-      check: {
-        global: {
-          statements: 40,
-          branches: 25,
-          functions: 20,
-          lines: 40,
-        },
-        each: {
-          statements: 0,
-          branches: 0,
-          functions: 0,
-          lines: 0,
-        },
-      },
     },
+    exclude: [],
+    files: [],
+    frameworks: ['jasmine'],
+    logLevel: config.LOG_ERROR,
+    port: 9876,
+    preprocessors: {
+      '../dist/script/**/*.js': ['coverage'],
+    },
+    proxies: {},
+    reporters: ['coverage', 'progress'],
+    singleRun: true,
   });
 
   if (process.env.TRAVIS) {

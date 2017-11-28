@@ -30,7 +30,13 @@ import {Link, Paragraph, Text, Bold} from '@wireapp/react-ui-kit/Text';
 
 class Index extends Component {
   componentDidMount() {
-    this.props.trackEvent({attributes: undefined, name: TrackingAction.EVENT_NAME.START.OPENED_START_SCREEN});
+    this.props.trackEvent({
+      attributes: {
+        app: 'desktop',
+        desktop_app: 'web',
+      },
+      name: TrackingAction.EVENT_NAME.START.OPENED_START_SCREEN,
+    });
   }
 
   onRegisterPersonalClick = () =>
